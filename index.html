@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор ROI чат-ботов</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1>Калькулятор ROI чат-ботов</h1>
+                <p class="header-subtitle">Рассчитайте эффективность внедрения чат-бота для вашего бизнеса</p>
+                <button onclick="window.open('https://ppl-ai-code-interpreter-files.s3.amazonaws.com/web/direct-files/ea8c12d6a7bdcbb5f6789adbb50bc0d2/4514050e-0ee5-4df9-9f3f-89233eca089e/pdf_23116db0.pdf', '_blank')" class="btn btn--outline documentation-btn">
+                    📄 Скачать документацию
+                </button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="calculator-grid">
+                <!-- Базовые параметры -->
+                <section class="calculator-section">
+                    <h2>Базовые параметры</h2>
+                    <div class="parameters-grid">
+                        <div class="form-group">
+                            <label for="botType" class="form-label">Тип бота</label>
+                            <select id="botType" class="form-control">
+                                <option value="simple">Простой FAQ бот</option>
+                                <option value="medium">Средний функциональный бот</option>
+                                <option value="complex">Сложный кастомный бот</option>
+                                <option value="enterprise">Enterprise решение</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="employees" class="form-label">Количество сотрудников поддержки</label>
+                            <input type="number" id="employees" class="form-control" value="5" min="1" max="1000">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="salary" class="form-label">Средняя зарплата оператора (руб./месяц)</label>
+                            <input type="number" id="salary" class="form-control" value="60000" min="10000" max="500000" step="1000">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="monthlyRequests" class="form-label">Количество обращений в месяц</label>
+                            <input type="number" id="monthlyRequests" class="form-control" value="5000" min="100" max="1000000" step="100">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="handleTime" class="form-label">Среднее время обработки (минут)</label>
+                            <input type="number" id="handleTime" class="form-control" value="6" min="1" max="60" step="0.5">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="averageCheck" class="form-label">Средний чек (руб.)</label>
+                            <input type="number" id="averageCheck" class="form-control" value="10000" min="100" max="1000000" step="100">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="currentConversion" class="form-label">Текущая конверсия (%)</label>
+                            <input type="number" id="currentConversion" class="form-control" value="15" min="0" max="100" step="0.1">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="margin" class="form-label">Маржинальность (%)</label>
+                            <input type="number" id="margin" class="form-control" value="40" min="1" max="100" step="1">
+                        </div>
+                    </div>
+
+                    <div class="slider-controls">
+                        <div class="form-group slider-group">
+                            <label for="automationRate" class="form-label">
+                                Ожидаемый процент автоматизации: <span id="automationRateValue">70%</span>
+                            </label>
+                            <input type="range" id="automationRate" class="slider" min="0" max="100" value="70">
+                        </div>
+
+                        <div class="form-group slider-group">
+                            <label for="conversionIncrease" class="form-label">
+                                Планируемое увеличение конверсии: <span id="conversionIncreaseValue">20%</span>
+                            </label>
+                            <input type="range" id="conversionIncrease" class="slider" min="0" max="50" value="20">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Градация сложности -->
+                <section class="calculator-section complexity-section">
+                    <h2>Градация сложности</h2>
+                    <div class="complexity-grid">
+                        <!-- FAQ Processing -->
+                        <div class="complexity-segment">
+                            <h3>Обработка FAQ</h3>
+                            <div class="complexity-levels">
+                                <label class="complexity-option">
+                                    <input type="radio" name="faq_processing" value="simple" checked>
+                                    <span class="option-content">
+                                        <strong>Простая</strong>
+                                        <small>Заранее заготовленные ответы</small>
+                                    </span>
+                                </label>
+                                <label class="complexity-option">
+                                    <input type="radio" name="faq_processing" value="medium">
+                                    <span class="option-content">
+                                        <strong>Средняя</strong>
+                                        <small>Поиск по базе знаний (+15 000₽)</small>
+                                    </span>
+                                </label>
+                                <label class="complexity-option">
+                                    <input type="radio" name="faq_processing" value="complex">
+                                    <span class="option-content">
+                                        <strong>Сложная</strong>
+                                        <small>Контекстное понимание (+45 000₽)</small>
+                                    </span>
+                                </label>
+                                <label class="complexity-option">
+                                    <input type="radio" name="faq_processing" value="expert">
+                                    <span class="option-content">
+                                        <strong>Expert</strong>
+                                        <small>AI-powered ответы (+80 000₽)</small>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Integrations -->
+                        <div class="complexity-segment">
+                            <h3>Интеграции с системами</h3>
+                            <div class="complexity-levels">
+                                <label class="complexity-option">
+                                    <input type="radio" name="integrations" value="basic" checked>
+                                    <span class="option-content">
+                                        <strong>Базовые</strong>
+                                        <small>1-2 простые интеграции</small>
+                                    </span>
+                                </label>
+                                <label class="complexity-option">
+                                    <input type="radio" name="integrations" value="advanced">
+                                    <span class="option-content">
+                                        <strong>Расширенные</strong>
+                                        <small>3-5 интеграций с API (+30 000₽)</small>
+                                    </span>
+                                </label>
+                                <label class="complexity-option">
+                                    <input type="radio" name="integrations" value="enterprise">
+                                    <span class="option-content">
+                                        <strong>Enterprise</strong>
+                                        <small>10+ интеграций, webhook (+70 000₽)</small>
+                                    </span>
+                                </label>
+                                <label class="complexity-option">
+                                    <input type="radio" name="integrations" value="custom">
+                                    <span class="option-content">
+                                        <strong>Custom</strong>
+                                        <small>Кастомные протоколы (+120 000₽)</small>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Analytics -->
+                        <div class="complexity-segment">
+                            <h3>Аналитика и отчетность</h3>
+                            <div class="complexity-levels">
+                                <label class="complexity-option">
+                                    <input type="radio" name="analytics" value="standard" checked>
+                                    <span class="option-content">
+                                        <strong>Стандартная</strong>
+                                        <small>Базовые метрики</small>
+                                    </span>
+                                </label>
+                                <label class="complexity-option">
+                                    <input type="radio" name="analytics" value="advanced">
+                                    <span class="option-content">
+                                        <strong>Продвинутая</strong>
+                                        <small>Детальная аналитика (+20 000₽)</small>
+                                    </span>
+                                </label>
+                                <label class="complexity-option">
+                                    <input type="radio" name="analytics" value="bi_level">
+                                    <span class="option-content">
+                                        <strong>BI-уровень</strong>
+                                        <small>Дашборды, воронки (+50 000₽)</small>
+                                    </span>
+                                </label>
+                                <label class="complexity-option">
+                                    <input type="radio" name="analytics" value="ai_analytics">
+                                    <span class="option-content">
+                                        <strong>AI-аналитика</strong>
+                                        <small>Предиктивная аналитика (+85 000₽)</small>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- NLP -->
+                        <div class="complexity-segment">
+                            <h3>NLP и понимание</h3>
+                            <div class="complexity-levels">
+                                <label class="complexity-option">
+                                    <input type="radio" name="nlp" value="keyword" checked>
+                                    <span class="option-content">
+                                        <strong>Keyword</strong>
+                                        <small>Поиск по ключевым словам</small>
+                                    </span>
+                                </label>
+                                <label class="complexity-option">
+                                    <input type="radio" name="nlp" value="simple_nlp">
+                                    <span class="option-content">
+                                        <strong>Simple NLP</strong>
+                                        <small>Базовое понимание языка (+35 000₽)</small>
+                                    </span>
+                                </label>
+                                <label class="complexity-option">
+                                    <input type="radio" name="nlp" value="advanced_nlp">
+                                    <span class="option-content">
+                                        <strong>Advanced NLP</strong>
+                                        <small>Контекст и интенты (+75 000₽)</small>
+                                    </span>
+                                </label>
+                                <label class="complexity-option">
+                                    <input type="radio" name="nlp" value="gpt_powered">
+                                    <span class="option-content">
+                                        <strong>GPT-powered</strong>
+                                        <small>Генеративный ИИ (+150 000₽)</small>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Personalization -->
+                        <div class="complexity-segment">
+                            <h3>Персонализация</h3>
+                            <div class="complexity-levels">
+                                <label class="complexity-option">
+                                    <input type="radio" name="personalization" value="none" checked>
+                                    <span class="option-content">
+                                        <strong>Нет</strong>
+                                        <small>Одинаковые ответы всем</small>
+                                    </span>
+                                </label>
+                                <label class="complexity-option">
+                                    <input type="radio" name="personalization" value="basic">
+                                    <span class="option-content">
+                                        <strong>Базовая</strong>
+                                        <small>Имя пользователя (+10 000₽)</small>
+                                    </span>
+                                </label>
+                                <label class="complexity-option">
+                                    <input type="radio" name="personalization" value="smart">
+                                    <span class="option-content">
+                                        <strong>Умная</strong>
+                                        <small>История и предпочтения (+40 000₽)</small>
+                                    </span>
+                                </label>
+                                <label class="complexity-option">
+                                    <input type="radio" name="personalization" value="ai_driven">
+                                    <span class="option-content">
+                                        <strong>AI-driven</strong>
+                                        <small>Поведенческая модель (+80 000₽)</small>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Security -->
+                        <div class="complexity-segment">
+                            <h3>Безопасность</h3>
+                            <div class="complexity-levels">
+                                <label class="complexity-option">
+                                    <input type="radio" name="security" value="standard" checked>
+                                    <span class="option-content">
+                                        <strong>Стандарт</strong>
+                                        <small>HTTPS, базовая защита</small>
+                                    </span>
+                                </label>
+                                <label class="complexity-option">
+                                    <input type="radio" name="security" value="enhanced">
+                                    <span class="option-content">
+                                        <strong>Повышенная</strong>
+                                        <small>2FA, шифрование (+25 000₽)</small>
+                                    </span>
+                                </label>
+                                <label class="complexity-option">
+                                    <input type="radio" name="security" value="enterprise">
+                                    <span class="option-content">
+                                        <strong>Enterprise</strong>
+                                        <small>SSO, аудит (+60 000₽)</small>
+                                    </span>
+                                </label>
+                                <label class="complexity-option">
+                                    <input type="radio" name="security" value="banking">
+                                    <span class="option-content">
+                                        <strong>Банковский</strong>
+                                        <small>PCI DSS, биометрия (+100 000₽)</small>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Результаты -->
+            <section class="results-section">
+                <div class="results-header">
+                    <h2>Результаты расчета ROI</h2>
+                    <div class="cost-summary">
+                        <div class="cost-item">
+                            <span class="cost-label">Стоимость разработки:</span>
+                            <span class="cost-value" id="developmentCost">100 000₽</span>
+                        </div>
+                        <div class="cost-item">
+                            <span class="cost-label">Ежемесячная стоимость:</span>
+                            <span class="cost-value" id="monthlyCost">5 000₽</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-grid">
+                    <div class="result-card">
+                        <h3>Экономия на ФОТ</h3>
+                        <div class="result-value" id="salaryEconomy">180 000₽/мес</div>
+                        <small class="result-description">Снижение расходов на зарплату операторов</small>
+                    </div>
+
+                    <div class="result-card">
+                        <h3>Доп. выручка от конверсии</h3>
+                        <div class="result-value" id="conversionRevenue">400 000₽/мес</div>
+                        <small class="result-description">Увеличение продаж благодаря боту</small>
+                    </div>
+
+                    <div class="result-card">
+                        <h3>Общая экономия</h3>
+                        <div class="result-value" id="totalEconomy">580 000₽/мес</div>
+                        <small class="result-description">Суммарная выгода от внедрения</small>
+                    </div>
+
+                    <div class="result-card highlight">
+                        <h3>ROI за 12 месяцев</h3>
+                        <div class="result-value" id="roi12months">6860%</div>
+                        <small class="result-description">Возврат инвестиций за год</small>
+                    </div>
+
+                    <div class="result-card">
+                        <h3>Период окупаемости</h3>
+                        <div class="result-value" id="paybackPeriod">0.2 мес</div>
+                        <small class="result-description">Время до полной окупаемости</small>
+                    </div>
+
+                    <div class="result-card">
+                        <h3>NPV за 3 года</h3>
+                        <div class="result-value" id="npv3years">20 620 000₽</div>
+                        <small class="result-description">Чистая приведенная стоимость</small>
+                    </div>
+                </div>
+
+                <div class="chart-container" style="position: relative; height: 400px; margin-top: var(--space-32);">
+                    <h3>График окупаемости</h3>
+                    <canvas id="paybackChart"></canvas>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
